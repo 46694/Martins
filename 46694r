@@ -1,5 +1,3 @@
-// Включете необходимите namespaces
-
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System;
@@ -21,7 +19,7 @@ namespace MobileApp
 
         void SetupUI()
         {
-            // Добавете UI елементи: бутони за запис на видео и аудио, бутон за възпроизвеждане на записаното и т.н.
+            
             var recordVideoButton = new Button
             {
                 Text = "Record Video",
@@ -74,16 +72,15 @@ namespace MobileApp
                 await MediaCapture.StopRecordAsync(videoCapture);
                 var videoPath = videoCapture.FilePath;
 
-                // Получаване на текущото местоположение
                 var location = await Geolocation.GetLocationAsync();
 
-                // Добавяне на географско местоположение към видеото
-                var videoWithLocation = AddLocationToVideo(videoPath, location);
+                
+                videoPath = AddLocationToVideo(videoPath, location);
 
-                // Възпроизвеждане на видеото с географско местоположение
+               
                 await Launcher.OpenAsync(new OpenFileRequest
                 {
-                    File = new ReadOnlyFile(videoWithLocation)
+                    File = new ReadOnlyFile(videoPath)
                 });
             }
 
@@ -92,12 +89,8 @@ namespace MobileApp
                 await MediaCapture.StopRecordAsync(audioCapture);
                 var audioPath = audioCapture.FilePath;
 
-                // Получаване на текущото местоположение
                 var location = await Geolocation.GetLocationAsync();
 
-                // Добавяне на географско местоположение към аудиото (ако е необходимо)
-
-                // Възпроизвеждане на записаното аудио
                 await Launcher.OpenAsync(new OpenFileRequest
                 {
                     File = new ReadOnlyFile(audioPath)
@@ -107,8 +100,6 @@ namespace MobileApp
 
         string AddLocationToVideo(string videoPath, Location location)
         {
-            // Имплементирайте логиката за добавяне на географско местоположение към видеото
-            // Върнете пътя към видеото с добавено местоположение
             return videoPath;
         }
     }
